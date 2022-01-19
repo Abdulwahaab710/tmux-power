@@ -103,8 +103,10 @@ tmux_set @prefix_highlight_output_suffix "#[fg=$TC]#[bg=$BG]$right_arrow_icon"
 tmux_set status-left-bg "$G04"
 tmux_set status-left-fg "G12"
 tmux_set status-left-length 150
-user=$(whoami)
-LS="#[fg=$G04,bg=$TC,bold] $user_icon $user@#h #[fg=$TC,bg=$G06,nobold]$right_arrow_icon#[fg=$TC,bg=$G06] $session_icon #S "
+# user=$(whoami)
+GIT_BRANCH='#(cd #{pane_current_path}; (BRANCH=$(git rev-parse --abbrev-ref HEAD | awk -v len=20 '"'"'{ if (length($0) > len) print substr($0, 1, len-3) "..."; else print; }'"'"') &&  echo "$BRANCH "))'
+
+LS="#[fg=$GR0,bg=$TC,bold] $GIT_BRANCH #[fg=$TC,bg=$GR2,nobold]#[fg=$TC,bg=$GR2]  #S "
 if "$show_upload_speed"; then
     LS="$LS#[fg=$G06,bg=$G05]$right_arrow_icon#[fg=$TC,bg=$G05] $upload_speed_icon #{upload_speed} #[fg=$G05,bg=$BG]$right_arrow_icon"
 else
